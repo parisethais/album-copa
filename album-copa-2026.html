@@ -115,6 +115,9 @@
     grid-template-columns: repeat(10, minmax(0, 1fr));
     gap: 3px;
   }
+  .stickers-grid.wide {
+    grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+  }
   .sticker {
     aspect-ratio: 1;
     border-radius: 4px;
@@ -175,6 +178,9 @@
     gap: 3px;
     margin-top: 3px;
     margin-bottom: 8px;
+  }
+  .sticker-labels.wide {
+    grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
   }
   .sticker-label {
     font-size: clamp(0.35rem, 1.2vw, 0.45rem);
@@ -463,8 +469,8 @@ function buildAlbumCard(key, len, label, flag, customLabels) {
       <div class="country-count ${isComplete?'full':''}">${have}/${len}</div>
     </div>
     <div class="country-bar"><div class="country-bar-fill" style="width:${pct}%"></div></div>
-    <div class="stickers-grid" id="ag-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
-    <div class="sticker-labels" id="al-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
+    <div class="stickers-grid${len > 10 ? ' wide' : ''}" id="ag-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
+    <div class="sticker-labels${len > 10 ? ' wide' : ''}" id="al-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
   `;
   const safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
   const grid = card.querySelector('#ag-'+safeKey);
@@ -540,8 +546,8 @@ function buildRepeatCard(key, len, label, flag, customLabels) {
       <div class="country-count ${hasAny?'has-r':''}">${hasAny ? total+' rep.' : '-'}</div>
     </div>
     <div class="country-bar"><div class="country-bar-fill repeat" style="width:${Math.min(100, total*10)}%"></div></div>
-    <div class="stickers-grid" id="rg-${safeKey}"></div>
-    <div class="sticker-labels" id="rl-${safeKey}"></div>
+    <div class="stickers-grid${len > 10 ? ' wide' : ''}" id="rg-${safeKey}"></div>
+    <div class="sticker-labels${len > 10 ? ' wide' : ''}" id="rl-${safeKey}"></div>
     <div class="repeat-summary" id="rs-${safeKey}"></div>
   `;
   const grid = card.querySelector('#rg-'+safeKey);

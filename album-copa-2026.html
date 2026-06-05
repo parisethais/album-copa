@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Álbum Copa 2026 — Minhas Figurinhas</title>
+<title>Álbum Copa 2026 - Minhas Figurinhas</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -221,7 +221,7 @@
       <span class="stat-label">figurinhas</span>
     </div>
     <div class="stat">
-      <span class="stat-num" id="total-missing">—</span>
+      <span class="stat-num" id="total-missing">-</span>
       <span class="stat-label">faltando</span>
     </div>
     <div class="stat">
@@ -251,7 +251,10 @@
   <button class="filter-btn" data-filter="incomplete">Incompletos</button>
   <button class="filter-btn" data-filter="started">Iniciados</button>
   <button class="filter-btn" data-filter="complete">Completos</button>
-  <button class="filter-btn" id="clear-btn" style="margin-left:auto; border-color:#ff4444; color:#ff4444">Limpar tudo</button>
+  <button class="filter-btn" id="backup-btn" style="margin-left:auto; border-color:var(--accent); color:var(--accent)">💾 Backup</button>
+  <button class="filter-btn" id="restore-btn" style="border-color:var(--accent); color:var(--accent)">📂 Restaurar</button>
+  <button class="filter-btn" id="clear-btn" style="border-color:#ff4444; color:#ff4444">Limpar tudo</button>
+  <input type="file" id="restore-file" accept=".json" style="display:none">
 </div>
 
 <!-- REPEATS TAB CONTROLS -->
@@ -259,7 +262,8 @@
   <input class="search-box" type="text" placeholder="Buscar país..." id="search-repeat-input">
   <button class="filter-btn active" data-rfilter="all">Todos</button>
   <button class="filter-btn" data-rfilter="with">Com repetidas</button>
-  <button class="filter-btn" id="clear-repeats-btn" style="margin-left:auto; border-color:#ff4444; color:#ff4444">Limpar repetidas</button>
+  <button class="filter-btn" id="copy-list-btn" style="margin-left:auto; background:#1a1a2e; border-color:var(--repeat-color); color:var(--repeat-color)">📋 Copiar lista</button>
+  <button class="filter-btn" id="clear-repeats-btn" style="border-color:#ff4444; color:#ff4444">Limpar repetidas</button>
 </div>
 
 <div class="content">
@@ -288,7 +292,7 @@
 <script>
 const SPECIAL_SECTIONS = [
   { id: "intro",  label: "Introdução", stickers: ["00"] },
-  { id: "fwc",    label: "FWC – História da Copa", stickers: ["FWC1","FWC2","FWC3","FWC4","FWC5","FWC6","FWC7","FWC8"] },
+  { id: "fwc",    label: "FWC - Historia da Copa", stickers: ["FWC1","FWC2","FWC3","FWC4","FWC5","FWC6","FWC7","FWC8","FWC9","FWC10","FWC11","FWC12","FWC13","FWC14","FWC15","FWC16","FWC17","FWC18","FWC19"] },
   { id: "cc",     label: "Coca-Cola", stickers: ["CC1","CC2","CC3","CC4","CC5","CC6","CC7","CC8","CC9","CC10","CC11","CC12","CC13","CC14"] },
 ];
 
@@ -308,23 +312,23 @@ const REAL_GROUPS = {
 };
 
 const FLAGS = {
-  "México":"🇲🇽","África do Sul":"🇿🇦","Coreia do Sul":"🇰🇷","República Tcheca":"🇨🇿",
-  "Canadá":"🇨🇦","Bósnia e Herzegovina":"🇧🇦","Catar":"🇶🇦","Suíça":"🇨🇭",
-  "Brasil":"🇧🇷","Marrocos":"🇲🇦","Haiti":"🇭🇹","Escócia":"🏴",
-  "EUA":"🇺🇸","Paraguai":"🇵🇾","Austrália":"🇦🇺","Turquia":"🇹🇷",
-  "Alemanha":"🇩🇪","Curaçao":"🇨🇼","Costa do Marfim":"🇨🇮","Equador":"🇪🇨",
-  "Holanda":"🇳🇱","Japão":"🇯🇵","Tunísia":"🇹🇳","Suécia":"🇸🇪",
-  "Bélgica":"🇧🇪","Egito":"🇪🇬","Irã":"🇮🇷","Nova Zelândia":"🇳🇿",
-  "Espanha":"🇪🇸","Cabo Verde":"🇨🇻","Arábia Saudita":"🇸🇦","Uruguai":"🇺🇾",
-  "França":"🇫🇷","Senegal":"🇸🇳","Noruega":"🇳🇴","Iraque":"🇮🇶",
-  "Argentina":"🇦🇷","Argélia":"🇩🇿","Áustria":"🇦🇹","Jordânia":"🇯🇴",
-  "Portugal":"🇵🇹","Uzbequistão":"🇺🇿","Colômbia":"🇨🇴","Congo DR":"🇨🇩",
-  "Inglaterra":"🏴","Croácia":"🇭🇷","Gana":"🇬🇭","Panamá":"🇵🇦",
+  "México":"\uD83C\uDDF2\uD83C\uDDFD","África do Sul":"\uD83C\uDDFF\uD83C\uDDE6","Coreia do Sul":"\uD83C\uDDF0\uD83C\uDDF7","República Tcheca":"\uD83C\uDDE8\uD83C\uDDFF",
+  "Canadá":"\uD83C\uDDE8\uD83C\uDDE6","Bósnia e Herzegovina":"\uD83C\uDDE7\uD83C\uDDE6","Catar":"\uD83C\uDDF6\uD83C\uDDE6","Suíça":"\uD83C\uDDE8\uD83C\uDDED",
+  "Brasil":"\uD83C\uDDE7\uD83C\uDDF7","Marrocos":"\uD83C\uDDF2\uD83C\uDDE6","Haiti":"\uD83C\uDDED\uD83C\uDDF9","Escócia":"\uD83C\uDFF4",
+  "EUA":"\uD83C\uDDFA\uD83C\uDDF8","Paraguai":"\uD83C\uDDF5\uD83C\uDDFE","Austrália":"\uD83C\uDDE6\uD83C\uDDFA","Turquia":"\uD83C\uDDF9\uD83C\uDDF7",
+  "Alemanha":"\uD83C\uDDE9\uD83C\uDDEA","Curaçao":"\uD83C\uDDE8\uD83C\uDDFC","Costa do Marfim":"\uD83C\uDDE8\uD83C\uDDEE","Equador":"\uD83C\uDDEA\uD83C\uDDE8",
+  "Holanda":"\uD83C\uDDF3\uD83C\uDDF1","Japão":"\uD83C\uDDEF\uD83C\uDDF5","Tunísia":"\uD83C\uDDF9\uD83C\uDDF3","Suécia":"\uD83C\uDDF8\uD83C\uDDEA",
+  "Bélgica":"\uD83C\uDDE7\uD83C\uDDEA","Egito":"\uD83C\uDDEA\uD83C\uDDEC","Irã":"\uD83C\uDDEE\uD83C\uDDF7","Nova Zelândia":"\uD83C\uDDF3\uD83C\uDDFF",
+  "Espanha":"\uD83C\uDDEA\uD83C\uDDF8","Cabo Verde":"\uD83C\uDDE8\uD83C\uDDFB","Arábia Saudita":"\uD83C\uDDF8\uD83C\uDDE6","Uruguai":"\uD83C\uDDFA\uD83C\uDDFE",
+  "França":"\uD83C\uDDEB\uD83C\uDDF7","Senegal":"\uD83C\uDDF8\uD83C\uDDF3","Noruega":"\uD83C\uDDF3\uD83C\uDDF4","Iraque":"\uD83C\uDDEE\uD83C\uDDF6",
+  "Argentina":"\uD83C\uDDE6\uD83C\uDDF7","Argélia":"\uD83C\uDDE9\uD83C\uDDFF","Áustria":"\uD83C\uDDE6\uD83C\uDDF9","Jordânia":"\uD83C\uDDEF\uD83C\uDDF4",
+  "Portugal":"\uD83C\uDDF5\uD83C\uDDF9","Uzbequistão":"\uD83C\uDDFA\uD83C\uDDFF","Colômbia":"\uD83C\uDDE8\uD83C\uDDF4","Congo DR":"\uD83C\uDDE8\uD83C\uDDE9",
+  "Inglaterra":"\uD83C\uDFF4","Croácia":"\uD83C\uDDED\uD83C\uDDF7","Gana":"\uD83C\uDDEC\uD83C\uDDED","Panamá":"\uD83C\uDDF5\uD83C\uDDE6",
 };
 
 // STATE
-// album: { key: bool[] }        — which stickers I have
-// repeats: { key: number[] }    — how many extras of each
+// album: { key: bool[] }        - which stickers I have
+// repeats: { key: number[] }    - how many extras of each
 let state = {};
 let repeats = {};
 
@@ -371,7 +375,7 @@ function allSections() {
     out.push({ key: '__'+sec.id, len: sec.stickers.length, label: sec.label, flag: '' });
   });
   Object.values(REAL_GROUPS).flat().forEach(c => {
-    out.push({ key: c, len: 20, label: c, flag: FLAGS[c]||'🏳' });
+    out.push({ key: c, len: 20, label: c, flag: FLAGS[c]||'' });
   });
   return out;
 }
@@ -432,7 +436,7 @@ function renderAlbumTab() {
     grpDiv.innerHTML = `<div class="group-header"><span>GRUPO ${grp}</span><span class="group-progress-text">${grpHave}/${countries.length*20}</span></div>`;
     const grid = document.createElement('div');
     grid.className = 'countries-grid';
-    filtered.forEach(c => grid.appendChild(buildAlbumCard(c, 20, c, FLAGS[c]||'🏳', null)));
+    filtered.forEach(c => grid.appendChild(buildAlbumCard(c, 20, c, FLAGS[c]||'', null)));
     grpDiv.appendChild(grid);
     container.appendChild(grpDiv);
   });
@@ -516,7 +520,7 @@ function renderRepeatsTab() {
     grpDiv.innerHTML = `<div class="group-header"><span>GRUPO ${grp}</span><span class="group-progress-text" style="color:var(--repeat-color)">${grpRep > 0 ? grpRep+' repetidas' : ''}</span></div>`;
     const grid = document.createElement('div');
     grid.className = 'countries-grid';
-    filtered.forEach(c => grid.appendChild(buildRepeatCard(c, 20, c, FLAGS[c]||'🏳', null)));
+    filtered.forEach(c => grid.appendChild(buildRepeatCard(c, 20, c, FLAGS[c]||'', null)));
     grpDiv.appendChild(grid);
     container.appendChild(grpDiv);
   });
@@ -533,7 +537,7 @@ function buildRepeatCard(key, len, label, flag, customLabels) {
   card.innerHTML = `
     <div class="country-header">
       <div class="country-name">${flag ? `<span class="flag">${flag}</span>` : ''}<span>${label}</span></div>
-      <div class="country-count ${hasAny?'has-r':''}">${hasAny ? total+' rep.' : '—'}</div>
+      <div class="country-count ${hasAny?'has-r':''}">${hasAny ? total+' rep.' : '-'}</div>
     </div>
     <div class="country-bar"><div class="country-bar-fill repeat" style="width:${Math.min(100, total*10)}%"></div></div>
     <div class="stickers-grid" id="rg-${safeKey}"></div>
@@ -553,9 +557,9 @@ function buildRepeatCard(key, len, label, flag, customLabels) {
 
     if (count > 0) {
       el.innerHTML = `<div class="repeat-controls">
-        <button class="rep-btn" data-action="plus" data-key="${key}" data-idx="${idx}">＋</button>
+        <button class="rep-btn" data-action="plus" data-key="${key}" data-idx="${idx}">+</button>
         <span class="rep-count">${count}</span>
-        <button class="rep-btn" data-action="minus" data-key="${key}" data-idx="${idx}">－</button>
+        <button class="rep-btn" data-action="minus" data-key="${key}" data-idx="${idx}">-</button>
       </div>`;
     } else {
       el.textContent = lbl;
@@ -591,7 +595,7 @@ function buildRepeatCard(key, len, label, flag, customLabels) {
       const lbl = customLabels ? customLabels[idx] : (idx+1).toString();
       const tag = document.createElement('div');
       tag.className = 'rep-tag';
-      tag.textContent = `${label.split('/')[0].trim()} ${lbl} ×${count}`;
+      tag.textContent = `${label.split('/')[0].trim()} ${lbl} x${count}`;
       summary.appendChild(tag);
     }
   });
@@ -649,6 +653,110 @@ document.getElementById('clear-repeats-btn').addEventListener('click', () => {
   if (confirm('Apagar todas as repetidas?')) {
     repeats = {}; saveState(); renderAll();
   }
+});
+
+// ---- COPY LIST ----
+document.getElementById('copy-list-btn').addEventListener('click', () => {
+  const lines = [];
+
+  // Special sections
+  SPECIAL_SECTIONS.forEach(sec => {
+    const key = '__' + sec.id;
+    const r = getRepeats(key, sec.stickers.length);
+    r.forEach((count, idx) => {
+      if (count > 0) {
+        lines.push(`${sec.stickers[idx]} x${count}`);
+      }
+    });
+  });
+
+  // Countries
+  Object.values(REAL_GROUPS).flat().forEach(country => {
+    const r = getRepeats(country, 20);
+    r.forEach((count, idx) => {
+      if (count > 0) {
+        const num = idx + 1;
+        lines.push(`${country} ${num} x${count}`);
+      }
+    });
+  });
+
+  if (lines.length === 0) {
+    alert('Você não tem nenhuma repetida registrada ainda!');
+    return;
+  }
+
+  const total = lines.reduce((s, l) => {
+    const m = l.match(/x(\d+)/);
+    return s + (m ? parseInt(m[1]) : 0);
+  }, 0);
+
+  const text = 'Minhas figurinhas repetidas (' + total + ' no total):\n\n' + lines.join('\n');
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-list-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copiado!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  }).catch(() => {
+    // fallback for browsers that block clipboard
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const btn = document.getElementById('copy-list-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copiado!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+});
+
+// ---- BACKUP / RESTORE ----
+document.getElementById('backup-btn').addEventListener('click', () => {
+  const data = {
+    version: 1,
+    date: new Date().toISOString(),
+    album: state,
+    repeats: repeats
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'album-copa-2026-backup.json';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('restore-btn').addEventListener('click', () => {
+  document.getElementById('restore-file').click();
+});
+
+document.getElementById('restore-file').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!data.album) throw new Error('Arquivo inválido');
+      if (confirm(`Restaurar backup de ${data.date ? new Date(data.date).toLocaleDateString('pt-BR') : 'data desconhecida'}? Isso vai substituir seus dados atuais.`)) {
+        state = data.album || {};
+        repeats = data.repeats || {};
+        saveState();
+        renderAll();
+        alert('✅ Backup restaurado com sucesso!');
+      }
+    } catch(err) {
+      alert('Arquivo inválido. Selecione um backup gerado por este app.');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
 });
 
 loadState();

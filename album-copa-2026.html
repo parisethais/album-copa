@@ -39,7 +39,6 @@
   .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 12px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s ease; }
 
-  /* TABS */
   .tabs { display: flex; gap: 0; margin-top: 16px; }
   .tab-btn {
     padding: 10px 24px;
@@ -115,12 +114,6 @@
     grid-template-columns: repeat(10, minmax(0, 1fr));
     gap: 3px;
   }
-  .stickers-grid.wide {
-    grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
-  }
-  .stickers-grid.fwc-grid {
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-  }
   .sticker {
     aspect-ratio: 1;
     border-radius: 4px;
@@ -140,8 +133,6 @@
   }
   .sticker:hover { border-color: var(--accent); transform: scale(1.1); z-index: 2; }
   .sticker.have { background: var(--accent); border-color: var(--accent); color: #000; }
-
-  /* repeat sticker */
   .sticker.has-repeat { background: var(--repeat-color); border-color: var(--repeat-color); color: #fff; }
   .sticker.has-repeat:hover { border-color: var(--repeat-color); transform: scale(1.05); }
 
@@ -182,9 +173,6 @@
     margin-top: 3px;
     margin-bottom: 8px;
   }
-  .sticker-labels.wide {
-    grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
-  }
   .sticker-label {
     font-size: clamp(0.35rem, 1.2vw, 0.45rem);
     color: var(--muted);
@@ -195,7 +183,6 @@
     line-height: 1.2;
   }
 
-  /* repeat summary list */
   .repeat-summary { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
   .rep-tag {
     background: rgba(255,107,53,0.15); border: 1px solid var(--repeat-color);
@@ -213,7 +200,6 @@
   .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
   .empty-state p { font-size: 0.9rem; margin-top: 8px; }
 
-  /* repeat tab total badge */
   .rep-total { color: var(--repeat-color); font-size: 0.75rem; margin-left: 4px; }
 </style>
 </head>
@@ -221,8 +207,8 @@
 
 <header>
   <div class="header-top">
-    <h1>⚽ Copa 2026</h1>
-    <span class="subtitle">Meu Álbum</span>
+    <h1>&#x26BD; Copa 2026</h1>
+    <span class="subtitle">Meu Album</span>
   </div>
   <div class="global-stats">
     <div class="stat">
@@ -239,7 +225,7 @@
     </div>
     <div class="stat">
       <span class="stat-num" id="countries-done">0</span>
-      <span class="stat-label">países completos</span>
+      <span class="stat-label">paises completos</span>
     </div>
     <div class="stat">
       <span class="stat-num" id="total-repeats" style="color:var(--repeat-color)">0</span>
@@ -248,36 +234,32 @@
   </div>
   <div class="progress-bar"><div class="progress-fill" id="global-bar" style="width:0%"></div></div>
   <div class="tabs">
-    <button class="tab-btn active" data-tab="album">📋 Álbum</button>
-    <button class="tab-btn repeat-tab" data-tab="repeats">🔁 Repetidas <span class="rep-total" id="rep-total-badge"></span></button>
+    <button class="tab-btn active" data-tab="album">Album</button>
+    <button class="tab-btn repeat-tab" data-tab="repeats">Repetidas <span class="rep-total" id="rep-total-badge"></span></button>
   </div>
 </header>
 
-<!-- ALBUM TAB CONTROLS -->
 <div id="controls-album" class="controls">
-  <input class="search-box" type="text" placeholder="Buscar país..." id="search-input">
+  <input class="search-box" type="text" placeholder="Buscar pais..." id="search-input">
   <button class="filter-btn active" data-filter="all">Todos</button>
   <button class="filter-btn" data-filter="incomplete">Incompletos</button>
   <button class="filter-btn" data-filter="started">Iniciados</button>
   <button class="filter-btn" data-filter="complete">Completos</button>
-  <button class="filter-btn" id="backup-btn" style="margin-left:auto; border-color:var(--accent); color:var(--accent)">💾 Backup</button>
-  <button class="filter-btn" id="restore-btn" style="border-color:var(--accent); color:var(--accent)">📂 Restaurar</button>
+  <button class="filter-btn" id="backup-btn" style="margin-left:auto; border-color:var(--accent); color:var(--accent)">Backup</button>
+  <button class="filter-btn" id="restore-btn" style="border-color:var(--accent); color:var(--accent)">Restaurar</button>
   <button class="filter-btn" id="clear-btn" style="border-color:#ff4444; color:#ff4444">Limpar tudo</button>
   <input type="file" id="restore-file" accept=".json" style="display:none">
 </div>
 
-<!-- REPEATS TAB CONTROLS -->
 <div id="controls-repeats" class="controls" style="display:none">
-  <input class="search-box" type="text" placeholder="Buscar país..." id="search-repeat-input">
+  <input class="search-box" type="text" placeholder="Buscar pais..." id="search-repeat-input">
   <button class="filter-btn active" data-rfilter="all">Todos</button>
   <button class="filter-btn" data-rfilter="with">Com repetidas</button>
-  <button class="filter-btn" id="copy-list-btn" style="margin-left:auto; background:#1a1a2e; border-color:var(--repeat-color); color:var(--repeat-color)">📋 Copiar lista</button>
+  <button class="filter-btn" id="copy-list-btn" style="margin-left:auto; background:#1a1a2e; border-color:var(--repeat-color); color:var(--repeat-color)">Copiar lista</button>
   <button class="filter-btn" id="clear-repeats-btn" style="border-color:#ff4444; color:#ff4444">Limpar repetidas</button>
 </div>
 
 <div class="content">
-
-  <!-- ALBUM TAB -->
   <div id="tab-album" class="tab-content active">
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Tenho</div>
@@ -285,70 +267,65 @@
     </div>
     <div id="groups-container" class="groups-grid"></div>
   </div>
-
-  <!-- REPEATS TAB -->
   <div id="tab-repeats" class="tab-content">
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--repeat-color)"></div> Tem repetida</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--missing); border:1.5px solid #444"></div> Sem repetida</div>
-      <div class="legend-item" style="color:var(--muted); font-size:0.7rem">Clique + / − para contar quantas cópias tem</div>
+      <div class="legend-item" style="color:var(--muted); font-size:0.7rem">Clique + / - para contar quantas copias tem</div>
     </div>
     <div id="repeats-container" class="groups-grid"></div>
   </div>
-
 </div>
 
 <script>
-const SPECIAL_SECTIONS = [
-  { id: "intro",  label: "Introdução", stickers: ["00"] },
-  { id: "fwc",    label: "FWC - Historia da Copa", stickers: ["FWC1","FWC2","FWC3","FWC4","FWC5","FWC6","FWC7","FWC8","FWC9","FWC10","FWC11","FWC12","FWC13","FWC14","FWC15","FWC16","FWC17","FWC18","FWC19"] },
-  { id: "cc",     label: "Coca-Cola", stickers: ["CC1","CC2","CC3","CC4","CC5","CC6","CC7","CC8","CC9","CC10","CC11","CC12","CC13","CC14"] },
+var SPECIAL_SECTIONS = [
+  { id: "intro", label: "Introducao", stickers: ["00"] },
+  { id: "fwc",   label: "FWC - Historia da Copa", stickers: ["FWC1","FWC2","FWC3","FWC4","FWC5","FWC6","FWC7","FWC8","FWC9","FWC10","FWC11","FWC12","FWC13","FWC14","FWC15","FWC16","FWC17","FWC18","FWC19"] },
+  { id: "cc",    label: "Coca-Cola", stickers: ["CC1","CC2","CC3","CC4","CC5","CC6","CC7","CC8","CC9","CC10","CC11","CC12","CC13","CC14"] }
 ];
 
-const REAL_GROUPS = {
-  "A": ["México","África do Sul","Coreia do Sul","República Tcheca"],
-  "B": ["Canadá","Bósnia e Herzegovina","Catar","Suíça"],
-  "C": ["Brasil","Marrocos","Haiti","Escócia"],
-  "D": ["EUA","Paraguai","Austrália","Turquia"],
-  "E": ["Alemanha","Curaçao","Costa do Marfim","Equador"],
-  "F": ["Holanda","Japão","Tunísia","Suécia"],
-  "G": ["Bélgica","Egito","Irã","Nova Zelândia"],
-  "H": ["Espanha","Cabo Verde","Arábia Saudita","Uruguai"],
-  "I": ["França","Senegal","Noruega","Iraque"],
-  "J": ["Argentina","Argélia","Áustria","Jordânia"],
-  "K": ["Portugal","Uzbequistão","Colômbia","Congo DR"],
-  "L": ["Inglaterra","Croácia","Gana","Panamá"],
+var REAL_GROUPS = {
+  "A": ["Mexico","Africa do Sul","Coreia do Sul","Republica Tcheca"],
+  "B": ["Canada","Bosnia e Herzegovina","Catar","Suica"],
+  "C": ["Brasil","Marrocos","Haiti","Escocia"],
+  "D": ["EUA","Paraguai","Australia","Turquia"],
+  "E": ["Alemanha","Curacao","Costa do Marfim","Equador"],
+  "F": ["Holanda","Japao","Tunisia","Suecia"],
+  "G": ["Belgica","Egito","Ira","Nova Zelandia"],
+  "H": ["Espanha","Cabo Verde","Arabia Saudita","Uruguai"],
+  "I": ["Franca","Senegal","Noruega","Iraque"],
+  "J": ["Argentina","Algeria","Austria","Jordania"],
+  "K": ["Portugal","Uzbequistao","Colombia","Congo DR"],
+  "L": ["Inglaterra","Croatia","Gana","Panama"]
 };
 
-const FLAGS = {
-  "México":"\uD83C\uDDF2\uD83C\uDDFD","África do Sul":"\uD83C\uDDFF\uD83C\uDDE6","Coreia do Sul":"\uD83C\uDDF0\uD83C\uDDF7","República Tcheca":"\uD83C\uDDE8\uD83C\uDDFF",
-  "Canadá":"\uD83C\uDDE8\uD83C\uDDE6","Bósnia e Herzegovina":"\uD83C\uDDE7\uD83C\uDDE6","Catar":"\uD83C\uDDF6\uD83C\uDDE6","Suíça":"\uD83C\uDDE8\uD83C\uDDED",
-  "Brasil":"\uD83C\uDDE7\uD83C\uDDF7","Marrocos":"\uD83C\uDDF2\uD83C\uDDE6","Haiti":"\uD83C\uDDED\uD83C\uDDF9","Escócia":"\uD83C\uDFF4",
-  "EUA":"\uD83C\uDDFA\uD83C\uDDF8","Paraguai":"\uD83C\uDDF5\uD83C\uDDFE","Austrália":"\uD83C\uDDE6\uD83C\uDDFA","Turquia":"\uD83C\uDDF9\uD83C\uDDF7",
-  "Alemanha":"\uD83C\uDDE9\uD83C\uDDEA","Curaçao":"\uD83C\uDDE8\uD83C\uDDFC","Costa do Marfim":"\uD83C\uDDE8\uD83C\uDDEE","Equador":"\uD83C\uDDEA\uD83C\uDDE8",
-  "Holanda":"\uD83C\uDDF3\uD83C\uDDF1","Japão":"\uD83C\uDDEF\uD83C\uDDF5","Tunísia":"\uD83C\uDDF9\uD83C\uDDF3","Suécia":"\uD83C\uDDF8\uD83C\uDDEA",
-  "Bélgica":"\uD83C\uDDE7\uD83C\uDDEA","Egito":"\uD83C\uDDEA\uD83C\uDDEC","Irã":"\uD83C\uDDEE\uD83C\uDDF7","Nova Zelândia":"\uD83C\uDDF3\uD83C\uDDFF",
-  "Espanha":"\uD83C\uDDEA\uD83C\uDDF8","Cabo Verde":"\uD83C\uDDE8\uD83C\uDDFB","Arábia Saudita":"\uD83C\uDDF8\uD83C\uDDE6","Uruguai":"\uD83C\uDDFA\uD83C\uDDFE",
-  "França":"\uD83C\uDDEB\uD83C\uDDF7","Senegal":"\uD83C\uDDF8\uD83C\uDDF3","Noruega":"\uD83C\uDDF3\uD83C\uDDF4","Iraque":"\uD83C\uDDEE\uD83C\uDDF6",
-  "Argentina":"\uD83C\uDDE6\uD83C\uDDF7","Argélia":"\uD83C\uDDE9\uD83C\uDDFF","Áustria":"\uD83C\uDDE6\uD83C\uDDF9","Jordânia":"\uD83C\uDDEF\uD83C\uDDF4",
-  "Portugal":"\uD83C\uDDF5\uD83C\uDDF9","Uzbequistão":"\uD83C\uDDFA\uD83C\uDDFF","Colômbia":"\uD83C\uDDE8\uD83C\uDDF4","Congo DR":"\uD83C\uDDE8\uD83C\uDDE9",
-  "Inglaterra":"\uD83C\uDFF4","Croácia":"\uD83C\uDDED\uD83C\uDDF7","Gana":"\uD83C\uDDEC\uD83C\uDDED","Panamá":"\uD83C\uDDF5\uD83C\uDDE6",
+var FLAGS = {
+  "Mexico":"\uD83C\uDDF2\uD83C\uDDFD","Africa do Sul":"\uD83C\uDDFF\uD83C\uDDE6","Coreia do Sul":"\uD83C\uDDF0\uD83C\uDDF7","Republica Tcheca":"\uD83C\uDDE8\uD83C\uDDFF",
+  "Canada":"\uD83C\uDDE8\uD83C\uDDE6","Bosnia e Herzegovina":"\uD83C\uDDE7\uD83C\uDDE6","Catar":"\uD83C\uDDF6\uD83C\uDDE6","Suica":"\uD83C\uDDE8\uD83C\uDDED",
+  "Brasil":"\uD83C\uDDE7\uD83C\uDDF7","Marrocos":"\uD83C\uDDF2\uD83C\uDDE6","Haiti":"\uD83C\uDDED\uD83C\uDDF9","Escocia":"\uD83C\uDFF4",
+  "EUA":"\uD83C\uDDFA\uD83C\uDDF8","Paraguai":"\uD83C\uDDF5\uD83C\uDDFE","Australia":"\uD83C\uDDE6\uD83C\uDDFA","Turquia":"\uD83C\uDDF9\uD83C\uDDF7",
+  "Alemanha":"\uD83C\uDDE9\uD83C\uDDEA","Curacao":"\uD83C\uDDE8\uD83C\uDDFC","Costa do Marfim":"\uD83C\uDDE8\uD83C\uDDEE","Equador":"\uD83C\uDDEA\uD83C\uDDE8",
+  "Holanda":"\uD83C\uDDF3\uD83C\uDDF1","Japao":"\uD83C\uDDEF\uD83C\uDDF5","Tunisia":"\uD83C\uDDF9\uD83C\uDDF3","Suecia":"\uD83C\uDDF8\uD83C\uDDEA",
+  "Belgica":"\uD83C\uDDE7\uD83C\uDDEA","Egito":"\uD83C\uDDEA\uD83C\uDDEC","Ira":"\uD83C\uDDEE\uD83C\uDDF7","Nova Zelandia":"\uD83C\uDDF3\uD83C\uDDFF",
+  "Espanha":"\uD83C\uDDEA\uD83C\uDDF8","Cabo Verde":"\uD83C\uDDE8\uD83C\uDDFB","Arabia Saudita":"\uD83C\uDDF8\uD83C\uDDE6","Uruguai":"\uD83C\uDDFA\uD83C\uDDFE",
+  "Franca":"\uD83C\uDDEB\uD83C\uDDF7","Senegal":"\uD83C\uDDF8\uD83C\uDDF3","Noruega":"\uD83C\uDDF3\uD83C\uDDF4","Iraque":"\uD83C\uDDEE\uD83C\uDDF6",
+  "Argentina":"\uD83C\uDDE6\uD83C\uDDF7","Algeria":"\uD83C\uDDE9\uD83C\uDDFF","Austria":"\uD83C\uDDE6\uD83C\uDDF9","Jordania":"\uD83C\uDDEF\uD83C\uDDF4",
+  "Portugal":"\uD83C\uDDF5\uD83C\uDDF9","Uzbequistao":"\uD83C\uDDFA\uD83C\uDDFF","Colombia":"\uD83C\uDDE8\uD83C\uDDF4","Congo DR":"\uD83C\uDDE8\uD83C\uDDE9",
+  "Inglaterra":"\uD83C\uDFF4","Croatia":"\uD83C\uDDED\uD83C\uDDF7","Gana":"\uD83C\uDDEC\uD83C\uDDED","Panama":"\uD83C\uDDF5\uD83C\uDDE6"
 };
 
-// STATE
-// album: { key: bool[] }        - which stickers I have
-// repeats: { key: number[] }    - how many extras of each
-let state = {};
-let repeats = {};
+var state = {};
+var repeats = {};
 
 function loadState() {
   try {
-    const s = localStorage.getItem('album_copa_2026');
+    var s = localStorage.getItem('album_copa_2026');
     if (s) state = JSON.parse(s);
-    const r = localStorage.getItem('repeats_copa_2026');
+    var r = localStorage.getItem('repeats_copa_2026');
     if (r) repeats = JSON.parse(r);
   } catch(e) {}
 }
+
 function saveState() {
   localStorage.setItem('album_copa_2026', JSON.stringify(state));
   localStorage.setItem('repeats_copa_2026', JSON.stringify(repeats));
@@ -356,57 +333,58 @@ function saveState() {
 
 function getAlbum(key, len) {
   if (!state[key]) state[key] = new Array(len).fill(false);
+  while (state[key].length < len) state[key].push(false);
   return state[key];
 }
+
 function getRepeats(key, len) {
   if (!repeats[key]) repeats[key] = new Array(len).fill(0);
+  while (repeats[key].length < len) repeats[key].push(0);
   return repeats[key];
 }
 
 function countHave(key, len) {
   return getAlbum(key, len).filter(Boolean).length;
 }
+
 function countRepeatTotal(key, len) {
-  return getRepeats(key, len).reduce((a,b) => a+b, 0);
+  return getRepeats(key, len).reduce(function(a,b){ return a+b; }, 0);
 }
 
-// ---- GLOBAL STATS ----
-let currentFilter = 'all';
-let currentRFilter = 'all';
-let searchText = '';
-let searchRepeatText = '';
-let currentTab = 'album';
+var currentFilter = 'all';
+var currentRFilter = 'all';
+var searchText = '';
+var searchRepeatText = '';
+var currentTab = 'album';
 
 function allSections() {
-  // returns [{key, len, label, flag}]
-  const out = [];
-  SPECIAL_SECTIONS.forEach(sec => {
-    out.push({ key: '__'+sec.id, len: sec.stickers.length, label: sec.label, flag: '' });
+  var out = [];
+  SPECIAL_SECTIONS.forEach(function(sec) {
+    out.push({ key: '__'+sec.id, len: sec.stickers.length });
   });
-  Object.values(REAL_GROUPS).flat().forEach(c => {
-    out.push({ key: c, len: 20, label: c, flag: FLAGS[c]||'' });
+  Object.values(REAL_GROUPS).flat().forEach(function(c) {
+    out.push({ key: c, len: 20 });
   });
   return out;
 }
 
 function updateGlobalStats() {
-  let totalHave = 0, totalAll = 0, countriesDone = 0, totalRep = 0;
-  allSections().forEach(({key, len}) => {
-    const h = countHave(key, len);
+  var totalHave = 0, totalAll = 0, countriesDone = 0, totalRep = 0;
+  allSections().forEach(function(sec) {
+    var h = countHave(sec.key, sec.len);
     totalHave += h;
-    totalAll += len;
-    if (len === 20 && !key.startsWith('__') && h === 20) countriesDone++;
-    totalRep += countRepeatTotal(key, len);
+    totalAll += sec.len;
+    if (sec.len === 20 && sec.key.indexOf('__') !== 0 && h === 20) countriesDone++;
+    totalRep += countRepeatTotal(sec.key, sec.len);
   });
-  const pct = Math.round((totalHave / totalAll) * 100);
+  var pct = Math.round((totalHave / totalAll) * 100);
   document.getElementById('total-have').textContent = totalHave;
   document.getElementById('total-missing').textContent = totalAll - totalHave;
   document.getElementById('total-pct').textContent = pct + '%';
   document.getElementById('countries-done').textContent = countriesDone;
   document.getElementById('global-bar').style.width = pct + '%';
   document.getElementById('total-repeats').textContent = totalRep;
-  const badge = document.getElementById('rep-total-badge');
-  badge.textContent = totalRep > 0 ? totalRep : '';
+  document.getElementById('rep-total-badge').textContent = totalRep > 0 ? totalRep : '';
 }
 
 function renderAll() {
@@ -415,84 +393,85 @@ function renderAll() {
   else renderRepeatsTab();
 }
 
-// ---- ALBUM TAB ----
-function renderAlbumTab() {
-  const container = document.getElementById('groups-container');
-  container.innerHTML = '';
-
-  // Special sections
-  const specialDiv = document.createElement('div');
-  specialDiv.innerHTML = `<div class="group-header"><span>FIGURINHAS ESPECIAIS</span></div>`;
-  const specGrid = document.createElement('div');
-  specGrid.className = 'countries-grid';
-  SPECIAL_SECTIONS.forEach(sec => {
-    const key = '__'+sec.id;
-    const len = sec.stickers.length;
-    if (!passFilter(key, len)) return;
-    if (searchText && !sec.label.toLowerCase().includes(searchText)) return;
-    specGrid.appendChild(buildAlbumCard(key, len, sec.label, '', sec.stickers));
-  });
-  if (specGrid.children.length) { specialDiv.appendChild(specGrid); container.appendChild(specialDiv); }
-
-  Object.entries(REAL_GROUPS).forEach(([grp, countries]) => {
-    const filtered = countries.filter(c => {
-      if (searchText && !c.toLowerCase().includes(searchText)) return false;
-      return passFilter(c, 20);
-    });
-    if (!filtered.length) return;
-    const grpHave = countries.reduce((s,c) => s + countHave(c, 20), 0);
-    const grpDiv = document.createElement('div');
-    grpDiv.innerHTML = `<div class="group-header"><span>GRUPO ${grp}</span><span class="group-progress-text">${grpHave}/${countries.length*20}</span></div>`;
-    const grid = document.createElement('div');
-    grid.className = 'countries-grid';
-    filtered.forEach(c => grid.appendChild(buildAlbumCard(c, 20, c, FLAGS[c]||'', null)));
-    grpDiv.appendChild(grid);
-    container.appendChild(grpDiv);
-  });
-}
-
 function passFilter(key, len) {
-  const h = countHave(key, len);
+  var h = countHave(key, len);
   if (currentFilter === 'complete') return h === len;
   if (currentFilter === 'incomplete') return h < len;
   if (currentFilter === 'started') return h > 0 && h < len;
   return true;
 }
 
-function buildAlbumCard(key, len, label, flag, customLabels) {
-  const s = getAlbum(key, len);
-  const have = s.filter(Boolean).length;
-  const isComplete = have === len;
-  const pct = Math.round((have/len)*100);
-  const card = document.createElement('div');
-  card.className = 'country-card' + (isComplete ? ' complete' : '');
-  card.innerHTML = `
-    <div class="country-header">
-      <div class="country-name">${flag ? `<span class="flag">${flag}</span>` : ''}<span>${label}</span>${isComplete ? '<span style="color:var(--accent);font-size:0.75rem">✓</span>':''}</div>
-      <div class="country-count ${isComplete?'full':''}">${have}/${len}</div>
-    </div>
-    <div class="country-bar"><div class="country-bar-fill" style="width:${pct}%"></div></div>
-    <div class="stickers-grid" id="ag-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
-    <div class="sticker-labels" id="al-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
-  `;
-  const safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
-  const grid = card.querySelector('#ag-'+safeKey);
-  const labsDiv = card.querySelector('#al-'+safeKey);
-  if (customLabels) { grid.classList.add('wide'); labsDiv.classList.add('wide'); }
+function renderAlbumTab() {
+  var container = document.getElementById('groups-container');
+  container.innerHTML = '';
 
-  s.forEach((have_it, idx) => {
-    const lbl = customLabels ? customLabels[idx] : (idx+1).toString();
-    const el = document.createElement('div');
+  var specialDiv = document.createElement('div');
+  specialDiv.innerHTML = '<div class="group-header"><span>FIGURINHAS ESPECIAIS</span></div>';
+  var specGrid = document.createElement('div');
+  specGrid.className = 'countries-grid';
+  SPECIAL_SECTIONS.forEach(function(sec) {
+    var key = '__'+sec.id;
+    var len = sec.stickers.length;
+    if (!passFilter(key, len)) return;
+    if (searchText && sec.label.toLowerCase().indexOf(searchText) === -1) return;
+    specGrid.appendChild(buildAlbumCard(key, len, sec.label, '', sec.stickers));
+  });
+  if (specGrid.children.length) { specialDiv.appendChild(specGrid); container.appendChild(specialDiv); }
+
+  Object.keys(REAL_GROUPS).forEach(function(grp) {
+    var countries = REAL_GROUPS[grp];
+    var filtered = countries.filter(function(c) {
+      if (searchText && c.toLowerCase().indexOf(searchText) === -1) return false;
+      return passFilter(c, 20);
+    });
+    if (!filtered.length) return;
+    var grpHave = countries.reduce(function(s,c){ return s + countHave(c, 20); }, 0);
+    var grpDiv = document.createElement('div');
+    grpDiv.innerHTML = '<div class="group-header"><span>GRUPO ' + grp + '</span><span class="group-progress-text">' + grpHave + '/' + (countries.length*20) + '</span></div>';
+    var grid = document.createElement('div');
+    grid.className = 'countries-grid';
+    filtered.forEach(function(c) { grid.appendChild(buildAlbumCard(c, 20, c, FLAGS[c]||'', null)); });
+    grpDiv.appendChild(grid);
+    container.appendChild(grpDiv);
+  });
+}
+
+function buildAlbumCard(key, len, label, flag, customLabels) {
+  var s = getAlbum(key, len);
+  var have = s.filter(Boolean).length;
+  var isComplete = have === len;
+  var pct = Math.round((have/len)*100);
+  var card = document.createElement('div');
+  card.className = 'country-card' + (isComplete ? ' complete' : '');
+
+  var flagHtml = flag ? '<span class="flag">' + flag + '</span>' : '';
+  var completeHtml = isComplete ? '<span style="color:var(--accent);font-size:0.75rem">&#x2713;</span>' : '';
+  var safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
+
+  card.innerHTML =
+    '<div class="country-header">' +
+      '<div class="country-name">' + flagHtml + '<span>' + label + '</span>' + completeHtml + '</div>' +
+      '<div class="country-count ' + (isComplete?'full':'') + '">' + have + '/' + len + '</div>' +
+    '</div>' +
+    '<div class="country-bar"><div class="country-bar-fill" style="width:' + pct + '%"></div></div>' +
+    '<div class="stickers-grid" id="ag-' + safeKey + '"></div>' +
+    '<div class="sticker-labels" id="al-' + safeKey + '"></div>';
+
+  var grid = card.querySelector('#ag-' + safeKey);
+  var labsDiv = card.querySelector('#al-' + safeKey);
+
+  s.forEach(function(have_it, idx) {
+    var lbl = customLabels ? customLabels[idx] : String(idx+1);
+    var el = document.createElement('div');
     el.className = 'sticker' + (have_it ? ' have' : '');
     el.textContent = lbl;
     el.style.fontSize = customLabels ? '0.45rem' : '0.55rem';
-    el.title = `${label} ${lbl}`;
-    el.addEventListener('click', () => {
+    el.addEventListener('click', function() {
       getAlbum(key, len)[idx] = !getAlbum(key, len)[idx];
       saveState(); renderAll();
     });
     grid.appendChild(el);
-    const l = document.createElement('div');
+    var l = document.createElement('div');
     l.className = 'sticker-label';
     l.textContent = lbl;
     labsDiv.appendChild(l);
@@ -500,113 +479,114 @@ function buildAlbumCard(key, len, label, flag, customLabels) {
   return card;
 }
 
-// ---- REPEATS TAB ----
 function renderRepeatsTab() {
-  const container = document.getElementById('repeats-container');
+  var container = document.getElementById('repeats-container');
   container.innerHTML = '';
 
-  const specialDiv = document.createElement('div');
-  specialDiv.innerHTML = `<div class="group-header"><span>FIGURINHAS ESPECIAIS</span></div>`;
-  const specGrid = document.createElement('div');
+  var specialDiv = document.createElement('div');
+  specialDiv.innerHTML = '<div class="group-header"><span>FIGURINHAS ESPECIAIS</span></div>';
+  var specGrid = document.createElement('div');
   specGrid.className = 'countries-grid';
-  SPECIAL_SECTIONS.forEach(sec => {
-    const key = '__'+sec.id;
-    const len = sec.stickers.length;
-    if (searchRepeatText && !sec.label.toLowerCase().includes(searchRepeatText)) return;
-    const total = countRepeatTotal(key, len);
+  SPECIAL_SECTIONS.forEach(function(sec) {
+    var key = '__'+sec.id;
+    var len = sec.stickers.length;
+    if (searchRepeatText && sec.label.toLowerCase().indexOf(searchRepeatText) === -1) return;
+    var total = countRepeatTotal(key, len);
     if (currentRFilter === 'with' && total === 0) return;
     specGrid.appendChild(buildRepeatCard(key, len, sec.label, '', sec.stickers));
   });
   if (specGrid.children.length) { specialDiv.appendChild(specGrid); container.appendChild(specialDiv); }
 
-  Object.entries(REAL_GROUPS).forEach(([grp, countries]) => {
-    const filtered = countries.filter(c => {
-      if (searchRepeatText && !c.toLowerCase().includes(searchRepeatText)) return false;
+  Object.keys(REAL_GROUPS).forEach(function(grp) {
+    var countries = REAL_GROUPS[grp];
+    var filtered = countries.filter(function(c) {
+      if (searchRepeatText && c.toLowerCase().indexOf(searchRepeatText) === -1) return false;
       if (currentRFilter === 'with' && countRepeatTotal(c, 20) === 0) return false;
       return true;
     });
     if (!filtered.length) return;
-    const grpRep = countries.reduce((s,c) => s + countRepeatTotal(c, 20), 0);
-    const grpDiv = document.createElement('div');
-    grpDiv.innerHTML = `<div class="group-header"><span>GRUPO ${grp}</span><span class="group-progress-text" style="color:var(--repeat-color)">${grpRep > 0 ? grpRep+' repetidas' : ''}</span></div>`;
-    const grid = document.createElement('div');
+    var grpRep = countries.reduce(function(s,c){ return s + countRepeatTotal(c, 20); }, 0);
+    var grpDiv = document.createElement('div');
+    grpDiv.innerHTML = '<div class="group-header"><span>GRUPO ' + grp + '</span><span class="group-progress-text" style="color:var(--repeat-color)">' + (grpRep > 0 ? grpRep+' repetidas' : '') + '</span></div>';
+    var grid = document.createElement('div');
     grid.className = 'countries-grid';
-    filtered.forEach(c => grid.appendChild(buildRepeatCard(c, 20, c, FLAGS[c]||'', null)));
+    filtered.forEach(function(c) { grid.appendChild(buildRepeatCard(c, 20, c, FLAGS[c]||'', null)); });
     grpDiv.appendChild(grid);
     container.appendChild(grpDiv);
   });
 }
 
 function buildRepeatCard(key, len, label, flag, customLabels) {
-  const r = getRepeats(key, len);
-  const total = r.reduce((a,b)=>a+b,0);
-  const hasAny = total > 0;
-  const safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
+  var r = getRepeats(key, len);
+  var total = r.reduce(function(a,b){ return a+b; }, 0);
+  var hasAny = total > 0;
+  var safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
+  var flagHtml = flag ? '<span class="flag">' + flag + '</span>' : '';
 
-  const card = document.createElement('div');
+  var card = document.createElement('div');
   card.className = 'country-card' + (hasAny ? ' has-repeats' : '');
-  card.innerHTML = `
-    <div class="country-header">
-      <div class="country-name">${flag ? `<span class="flag">${flag}</span>` : ''}<span>${label}</span></div>
-      <div class="country-count ${hasAny?'has-r':''}">${hasAny ? total+' rep.' : '-'}</div>
-    </div>
-    <div class="country-bar"><div class="country-bar-fill repeat" style="width:${Math.min(100, total*10)}%"></div></div>
-    <div class="stickers-grid" id="rg-${safeKey}"></div>
-    <div class="sticker-labels" id="rl-${safeKey}"></div>
-    <div class="repeat-summary" id="rs-${safeKey}"></div>
-  `;
-  const grid = card.querySelector('#rg-'+safeKey);
-  const labsDiv = card.querySelector('#rl-'+safeKey);
-  const summary = card.querySelector('#rs-'+safeKey);
+  card.innerHTML =
+    '<div class="country-header">' +
+      '<div class="country-name">' + flagHtml + '<span>' + label + '</span></div>' +
+      '<div class="country-count ' + (hasAny?'has-r':'') + '">' + (hasAny ? total+' rep.' : '-') + '</div>' +
+    '</div>' +
+    '<div class="country-bar"><div class="country-bar-fill repeat" style="width:' + Math.min(100, total*10) + '%"></div></div>' +
+    '<div class="stickers-grid" id="rg-' + safeKey + '"></div>' +
+    '<div class="sticker-labels" id="rl-' + safeKey + '"></div>' +
+    '<div class="repeat-summary" id="rs-' + safeKey + '"></div>';
 
-  r.forEach((count, idx) => {
-    const lbl = customLabels ? customLabels[idx] : (idx+1).toString();
-    const el = document.createElement('div');
+  var grid = card.querySelector('#rg-' + safeKey);
+  var labsDiv = card.querySelector('#rl-' + safeKey);
+  var summary = card.querySelector('#rs-' + safeKey);
+
+  r.forEach(function(count, idx) {
+    var lbl = customLabels ? customLabels[idx] : String(idx+1);
+    var el = document.createElement('div');
     el.className = 'sticker' + (count > 0 ? ' has-repeat' : '');
     el.style.fontSize = customLabels ? '0.4rem' : '0.5rem';
-    el.title = `${label} ${lbl}: ${count} repetida(s)`;
 
     if (count > 0) {
-      el.innerHTML = `<div class="repeat-controls">
-        <button class="rep-btn" data-action="plus" data-key="${key}" data-idx="${idx}">+</button>
-        <span class="rep-count">${count}</span>
-        <button class="rep-btn" data-action="minus" data-key="${key}" data-idx="${idx}">-</button>
-      </div>`;
+      el.innerHTML =
+        '<div class="repeat-controls">' +
+          '<button class="rep-btn" data-action="plus" data-key="' + key + '" data-idx="' + idx + '">+</button>' +
+          '<span class="rep-count">' + count + '</span>' +
+          '<button class="rep-btn" data-action="minus" data-key="' + key + '" data-idx="' + idx + '">-</button>' +
+        '</div>';
     } else {
       el.textContent = lbl;
-      el.addEventListener('click', () => {
-        getRepeats(key, len)[idx]++;
-        saveState(); renderAll();
-      });
+      (function(k, i) {
+        el.addEventListener('click', function() {
+          getRepeats(k, len)[i]++;
+          saveState(); renderAll();
+        });
+      })(key, idx);
     }
     grid.appendChild(el);
 
-    const l = document.createElement('div');
+    var l = document.createElement('div');
     l.className = 'sticker-label';
     l.textContent = lbl;
     labsDiv.appendChild(l);
   });
 
-  // + / - buttons
-  grid.querySelectorAll('.rep-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  grid.querySelectorAll('.rep-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
       e.stopPropagation();
-      const k = btn.dataset.key;
-      const i = parseInt(btn.dataset.idx);
-      const arr = getRepeats(k, len);
+      var k = btn.dataset.key;
+      var i = parseInt(btn.dataset.idx);
+      var arr = getRepeats(k, len);
       if (btn.dataset.action === 'plus') arr[i]++;
       else arr[i] = Math.max(0, arr[i]-1);
       saveState(); renderAll();
     });
   });
 
-  // Summary tags
-  r.forEach((count, idx) => {
+  r.forEach(function(count, idx) {
     if (count > 0) {
-      const lbl = customLabels ? customLabels[idx] : (idx+1).toString();
-      const tag = document.createElement('div');
+      var lbl = customLabels ? customLabels[idx] : String(idx+1);
+      var tag = document.createElement('div');
       tag.className = 'rep-tag';
-      tag.textContent = `${label.split('/')[0].trim()} ${lbl} x${count}`;
+      tag.textContent = label.split('/')[0].trim() + ' ' + lbl + ' x' + count;
       summary.appendChild(tag);
     }
   });
@@ -614,10 +594,9 @@ function buildRepeatCard(key, len, label, flag, customLabels) {
   return card;
 }
 
-// ---- TABS ----
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
     currentTab = btn.dataset.tab;
     document.getElementById('controls-album').style.display = currentTab === 'album' ? 'flex' : 'none';
@@ -628,90 +607,71 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// ---- ALBUM CONTROLS ----
-document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn[data-filter]').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.filter-btn[data-filter]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn[data-filter]').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
     currentFilter = btn.dataset.filter;
     renderAll();
   });
 });
-document.getElementById('search-input').addEventListener('input', e => {
+
+document.getElementById('search-input').addEventListener('input', function(e) {
   searchText = e.target.value.toLowerCase();
   renderAll();
 });
-document.getElementById('clear-btn').addEventListener('click', () => {
-  if (confirm('Apagar todo o progresso do álbum?')) {
+
+document.getElementById('clear-btn').addEventListener('click', function() {
+  if (confirm('Apagar todo o progresso do album?')) {
     state = {}; saveState(); renderAll();
   }
 });
 
-// ---- REPEATS CONTROLS ----
-document.querySelectorAll('.filter-btn[data-rfilter]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn[data-rfilter]').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.filter-btn[data-rfilter]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn[data-rfilter]').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
     currentRFilter = btn.dataset.rfilter;
     renderAll();
   });
 });
-document.getElementById('search-repeat-input').addEventListener('input', e => {
+
+document.getElementById('search-repeat-input').addEventListener('input', function(e) {
   searchRepeatText = e.target.value.toLowerCase();
   renderAll();
 });
-document.getElementById('clear-repeats-btn').addEventListener('click', () => {
+
+document.getElementById('clear-repeats-btn').addEventListener('click', function() {
   if (confirm('Apagar todas as repetidas?')) {
     repeats = {}; saveState(); renderAll();
   }
 });
 
-// ---- COPY LIST ----
-document.getElementById('copy-list-btn').addEventListener('click', () => {
-  const lines = [];
-
-  // Special sections
-  SPECIAL_SECTIONS.forEach(sec => {
-    const key = '__' + sec.id;
-    const r = getRepeats(key, sec.stickers.length);
-    r.forEach((count, idx) => {
-      if (count > 0) {
-        lines.push(`${sec.stickers[idx]} x${count}`);
-      }
+document.getElementById('copy-list-btn').addEventListener('click', function() {
+  var lines = [];
+  SPECIAL_SECTIONS.forEach(function(sec) {
+    var key = '__' + sec.id;
+    var r = getRepeats(key, sec.stickers.length);
+    r.forEach(function(count, idx) {
+      if (count > 0) lines.push(sec.stickers[idx] + ' x' + count);
     });
   });
-
-  // Countries
-  Object.values(REAL_GROUPS).flat().forEach(country => {
-    const r = getRepeats(country, 20);
-    r.forEach((count, idx) => {
-      if (count > 0) {
-        const num = idx + 1;
-        lines.push(`${country} ${num} x${count}`);
-      }
+  Object.values(REAL_GROUPS).flat().forEach(function(country) {
+    var r = getRepeats(country, 20);
+    r.forEach(function(count, idx) {
+      if (count > 0) lines.push(country + ' ' + (idx+1) + ' x' + count);
     });
   });
-
-  if (lines.length === 0) {
-    alert('Você não tem nenhuma repetida registrada ainda!');
-    return;
-  }
-
-  const total = lines.reduce((s, l) => {
-    const m = l.match(/x(\d+)/);
-    return s + (m ? parseInt(m[1]) : 0);
-  }, 0);
-
-  const text = 'Minhas figurinhas repetidas (' + total + ' no total):\n\n' + lines.join('\n');
-
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copy-list-btn');
-    const orig = btn.textContent;
-    btn.textContent = '✅ Copiado!';
-    setTimeout(() => { btn.textContent = orig; }, 2000);
-  }).catch(() => {
-    // fallback for browsers that block clipboard
-    const ta = document.createElement('textarea');
+  if (lines.length === 0) { alert('Voce nao tem nenhuma repetida registrada ainda!'); return; }
+  var total = lines.reduce(function(s,l){ var m = l.match(/x(\d+)/); return s + (m ? parseInt(m[1]) : 0); }, 0);
+  var text = 'Minhas figurinhas repetidas (' + total + ' no total):\n\n' + lines.join('\n');
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById('copy-list-btn');
+    var orig = btn.textContent;
+    btn.textContent = 'Copiado!';
+    setTimeout(function(){ btn.textContent = orig; }, 2000);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
@@ -719,51 +679,46 @@ document.getElementById('copy-list-btn').addEventListener('click', () => {
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    const btn = document.getElementById('copy-list-btn');
-    const orig = btn.textContent;
-    btn.textContent = '✅ Copiado!';
-    setTimeout(() => { btn.textContent = orig; }, 2000);
+    var btn = document.getElementById('copy-list-btn');
+    var orig = btn.textContent;
+    btn.textContent = 'Copiado!';
+    setTimeout(function(){ btn.textContent = orig; }, 2000);
   });
 });
 
-// ---- BACKUP / RESTORE ----
-document.getElementById('backup-btn').addEventListener('click', () => {
-  const data = {
-    version: 1,
-    date: new Date().toISOString(),
-    album: state,
-    repeats: repeats
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+document.getElementById('backup-btn').addEventListener('click', function() {
+  var data = { version: 1, date: new Date().toISOString(), album: state, repeats: repeats };
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
   a.href = url;
   a.download = 'album-copa-2026-backup.json';
   a.click();
   URL.revokeObjectURL(url);
 });
 
-document.getElementById('restore-btn').addEventListener('click', () => {
+document.getElementById('restore-btn').addEventListener('click', function() {
   document.getElementById('restore-file').click();
 });
 
-document.getElementById('restore-file').addEventListener('change', (e) => {
-  const file = e.target.files[0];
+document.getElementById('restore-file').addEventListener('change', function(e) {
+  var file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
+  var reader = new FileReader();
+  reader.onload = function(ev) {
     try {
-      const data = JSON.parse(ev.target.result);
-      if (!data.album) throw new Error('Arquivo inválido');
-      if (confirm(`Restaurar backup de ${data.date ? new Date(data.date).toLocaleDateString('pt-BR') : 'data desconhecida'}? Isso vai substituir seus dados atuais.`)) {
+      var data = JSON.parse(ev.target.result);
+      if (!data.album) throw new Error('invalido');
+      var dateStr = data.date ? new Date(data.date).toLocaleDateString('pt-BR') : 'data desconhecida';
+      if (confirm('Restaurar backup de ' + dateStr + '? Isso vai substituir seus dados atuais.')) {
         state = data.album || {};
         repeats = data.repeats || {};
         saveState();
         renderAll();
-        alert('✅ Backup restaurado com sucesso!');
+        alert('Backup restaurado com sucesso!');
       }
     } catch(err) {
-      alert('Arquivo inválido. Selecione um backup gerado por este app.');
+      alert('Arquivo invalido.');
     }
   };
   reader.readAsText(file);

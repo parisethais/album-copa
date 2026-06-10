@@ -478,6 +478,7 @@ function buildAlbumCard(key, len, label, flag, customLabels) {
   const safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
   const grid = card.querySelector('#ag-'+safeKey);
   const labsDiv = card.querySelector('#al-'+safeKey);
+  if (customLabels) { grid.classList.add('wide'); labsDiv.classList.add('wide'); }
 
   s.forEach((have_it, idx) => {
     const lbl = customLabels ? customLabels[idx] : (idx+1).toString();

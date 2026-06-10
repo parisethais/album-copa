@@ -93,7 +93,7 @@
   .country-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; padding: 14px; transition: border-color 0.2s;
-    overflow: hidden; min-width: 0;
+    min-width: 0;
   }
   .country-card:hover { border-color: var(--accent); }
   .country-card.complete { border-color: var(--accent); background: rgba(200,255,0,0.03); }
@@ -478,7 +478,7 @@ function buildAlbumCard(key, len, label, flag, customLabels) {
   const safeKey = key.replace(/[^a-zA-Z0-9]/g,'_');
   const grid = card.querySelector('#ag-'+safeKey);
   const labsDiv = card.querySelector('#al-'+safeKey);
-  if (len !== 20) { grid.classList.add('wide'); labsDiv.classList.add('wide'); }
+
   s.forEach((have_it, idx) => {
     const lbl = customLabels ? customLabels[idx] : (idx+1).toString();
     const el = document.createElement('div');
